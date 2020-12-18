@@ -1,0 +1,21 @@
+{
+	"name": "driver",
+	"properties": {
+		"description": "Drivers of sasweb2.",
+		"linkedServiceName": {
+			"referenceName": "df_dev_dominio",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Smart Report/origem"
+		},
+		"annotations": [],
+		"type": "PostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "condutor",
+			"table": "motorista"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

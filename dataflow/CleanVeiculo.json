@@ -1,0 +1,58 @@
+{
+	"name": "CleanVeiculo",
+	"properties": {
+		"folder": {
+			"name": "DF_to_Raw"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "st_veiculo_sincroniza_csv",
+						"type": "DatasetReference"
+					},
+					"name": "stVeiculo"
+				},
+				{
+					"dataset": {
+						"referenceName": "st_agrupamento_veiculo_csv",
+						"type": "DatasetReference"
+					},
+					"name": "stAgrupamento"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "st_veiculo_clean",
+						"type": "DatasetReference"
+					},
+					"name": "saveStVeiculo"
+				}
+			],
+			"transformations": [
+				{
+					"name": "MapDriftedStVeiculo",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "SelectStVeiculo"
+				},
+				{
+					"name": "SortStVeiculo"
+				},
+				{
+					"name": "JoinAgrupamento"
+				},
+				{
+					"name": "MapDritedStAgrupamento"
+				},
+				{
+					"name": "SortStAgrupamento"
+				}
+			],
+			"script": "source(output(\n\t\tagrveiveioid as string,\n\t\tagrveiveigruoid as string,\n\t\tagrveiveisubgruoid as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:['veiculo_sincroniza']) ~> stVeiculo\nsource(output(\n\t\tagrveiveioid as string,\n\t\tagrveiveigruoid as string,\n\t\tagrveiveisubgruoid as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> stAgrupamento\nstVeiculo derive(vscveioid = toInteger(byName('vscveioid')),\n\t\tvscveiplaca = toString(byName('vscveiplaca')),\n\t\tvscconclioid = toInteger(byName('vscconclioid'))) ~> MapDriftedStVeiculo\nMapDriftedStVeiculo select(mapColumn(\n\t\tvscveioid,\n\t\tvscveiplaca,\n\t\tvscconclioid\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectStVeiculo\nSelectStVeiculo sort(asc(vscveioid, true)) ~> SortStVeiculo\nSortStVeiculo, SortStAgrupamento join(vscveioid == agrveiveioid,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> JoinAgrupamento\nstAgrupamento derive(agrveiveioid = toInteger(byName('agrveiveioid')),\n\t\tagrveiveigruoid = toInteger(byName('agrveiveigruoid')),\n\t\tagrveiveisubgruoid = toInteger(byName('agrveiveisubgruoid'))) ~> MapDritedStAgrupamento\nMapDritedStAgrupamento sort(asc(agrveiveioid, true)) ~> SortStAgrupamento\nJoinAgrupamento sink(input(\n\t\tvehicle_group_id as string,\n\t\tvehicle_group_name as string,\n\t\tveigrupafroid as string,\n\t\tsk_dim_vehicle_group as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> saveStVeiculo"
+		}
+	}
+}

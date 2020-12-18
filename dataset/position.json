@@ -1,0 +1,90 @@
+{
+	"name": "position",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "df_dev_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"path_date": {
+				"type": "string",
+				"defaultValue": "2020/11/13"
+			},
+			"path_container": {
+				"type": "string",
+				"defaultValue": "sascar-dev-evthub/evthub-position-dev"
+			},
+			"path_partition": {
+				"type": "string",
+				"defaultValue": "0"
+			}
+		},
+		"folder": {
+			"name": "Smart Report/origem"
+		},
+		"annotations": [],
+		"type": "Avro",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "**",
+				"folderPath": {
+					"value": "@concat(dataset().path_container,'/',dataset().path_partition,'/',dataset().path_date)",
+					"type": "Expression"
+				},
+				"fileSystem": "ct-position-dev"
+			}
+		},
+		"schema": {
+			"type": "record",
+			"name": "Microsoft.ServiceBus.Messaging.EventData",
+			"fields": [
+				{
+					"name": "SequenceNumber",
+					"type": "long"
+				},
+				{
+					"name": "Offset",
+					"type": "string"
+				},
+				{
+					"name": "EnqueuedTimeUtc",
+					"type": "string"
+				},
+				{
+					"name": "SystemProperties",
+					"type": {
+						"type": "map",
+						"values": [
+							"long",
+							"double",
+							"string",
+							"bytes"
+						]
+					}
+				},
+				{
+					"name": "Properties",
+					"type": {
+						"type": "map",
+						"values": [
+							"long",
+							"double",
+							"string",
+							"bytes",
+							"null"
+						]
+					}
+				},
+				{
+					"name": "Body",
+					"type": [
+						"null",
+						"bytes"
+					]
+				}
+			]
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

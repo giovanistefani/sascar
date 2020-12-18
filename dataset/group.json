@@ -1,0 +1,21 @@
+{
+	"name": "group",
+	"properties": {
+		"description": "Groups of vehicles from Sasweb2.",
+		"linkedServiceName": {
+			"referenceName": "df_dev_dominio",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Smart Report/origem"
+		},
+		"annotations": [],
+		"type": "PostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dispositivo",
+			"table": "veiculo_grupo"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

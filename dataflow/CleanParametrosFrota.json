@@ -1,0 +1,42 @@
+{
+	"name": "CleanParametrosFrota",
+	"properties": {
+		"folder": {
+			"name": "DF_to_Raw"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "st_parametro_frota_csv",
+						"type": "DatasetReference"
+					},
+					"name": "stParametrosFrota"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "st_parametro_froma_clean",
+						"type": "DatasetReference"
+					},
+					"name": "saveStParametroFrota"
+				}
+			],
+			"transformations": [
+				{
+					"name": "MapDriftedParametroFrota",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "SelectParametroFrota"
+				},
+				{
+					"name": "SortParametroFrota"
+				}
+			],
+			"script": "source(output(\n\t\tagrveiveioid as string,\n\t\tagrveiveigruoid as string,\n\t\tagrveiveisubgruoid as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false) ~> stParametrosFrota\nstParametrosFrota derive(pafroid = toInteger(byName('pafroid')),\n\t\tpafrmd_combustivel_ideal = toFloat(byName('pafrmd_combustivel_ideal')),\n\t\tpafrvl_diesel = toFloat(byName('pafrvl_diesel')),\n\t\tpafrpct_fx_verde = toFloat(byName('pafrpct_fx_verde')),\n\t\tpafrpct_sobregiro = toFloat(byName('pafrpct_sobregiro')),\n\t\tpafrtp_parado_ligado = toFloat(byName('pafrtp_parado_ligado')),\n\t\tpafrdt_alteracao = toFloat(byName('pafrdt_alteracao')),\n\t\tpafrvl_min_consumo = toFloat(byName('pafrvl_min_consumo')),\n\t\tpafrvl_min_odometro = toFloat(byName('pafrvl_min_odometro')),\n\t\tpafrhora_disponivel_dia = toString(byName('pafrhora_disponivel_dia')),\n\t\tpafrqtd_dias_semana = toString(byName('pafrqtd_dias_semana')),\n\t\tpafrpct_fx_verde_extraeconomica = toFloat(byName('pafrpct_fx_verde_extraeconomica'))) ~> MapDriftedParametroFrota\nMapDriftedParametroFrota select(mapColumn(\n\t\tpafroid,\n\t\tpafrmd_combustivel_ideal,\n\t\tpafrvl_diesel,\n\t\tpafrpct_fx_verde,\n\t\tpafrpct_sobregiro,\n\t\tpafrtp_parado_ligado,\n\t\tpafrdt_alteracao,\n\t\tpafrvl_min_consumo,\n\t\tpafrvl_min_odometro,\n\t\tpafrhora_disponivel_dia,\n\t\tpafrqtd_dias_semana,\n\t\tpafrpct_fx_verde_extraeconomica\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectParametroFrota\nSelectParametroFrota sort(asc(pafroid, true)) ~> SortParametroFrota\nSortParametroFrota sink(input(\n\t\tColumn_1 as string,\n\t\tColumn_2 as string,\n\t\tColumn_3 as string,\n\t\tColumn_4 as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> saveStParametroFrota"
+		}
+	}
+}

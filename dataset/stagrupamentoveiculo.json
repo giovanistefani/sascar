@@ -1,0 +1,33 @@
+{
+	"name": "stagrupamentoveiculo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "df_dev_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Smart Report/load_landed"
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "agrupamento_veiculo",
+				"fileSystem": "ct-landed-dev"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "motoid",
+				"type": "INT64"
+			},
+			{
+				"name": "motclioid",
+				"type": "INT64"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

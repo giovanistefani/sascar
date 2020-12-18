@@ -1,0 +1,17 @@
+{
+	"name": "df_dev_bdcentral",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Ambiente DEV. Conexão para a base do BDCentral. ",
+		"annotations": [],
+		"type": "PostgreSql",
+		"typeProperties": {
+			"connectionString": "host=10.1.110.41;port=5432;database=bdcentral;uid=smart_reports_app;encryptionmethod=0",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJlZjRjMTQ1NS1mMmFiLTQyYzktOTQyNi1iMzhhNWRjZmJkYTciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "EmbratelIntegrationRuntime1DEV",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

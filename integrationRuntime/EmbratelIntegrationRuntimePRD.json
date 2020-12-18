@@ -1,0 +1,13 @@
+{
+	"name": "EmbratelIntegrationRuntimePRD",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Integration Runtime PRD",
+		"typeProperties": {
+			"linkedInfo": {
+				"resourceId": "/subscriptions/a0ed166b-87f1-43e9-a91e-44568212bf5c/resourcegroups/RG_BR_EMBRATEL_INTEGRATION/providers/Microsoft.DataFactory/factories/df-br-embratel-integration/integrationruntimes/EmbratelIntegrationRuntime",
+				"authorizationType": "Rbac"
+			}
+		}
+	}
+}

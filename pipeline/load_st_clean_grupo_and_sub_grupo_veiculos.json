@@ -1,0 +1,38 @@
+{
+	"name": "load_st_clean_grupo_and_sub_grupo_veiculos",
+	"properties": {
+		"activities": [
+			{
+				"name": "CleanGrupoAndSubGrupoVeiculo",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "CleanGrupoAndSubVeiculo",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"concurrency": 10,
+		"folder": {
+			"name": "load_ct-raw-dev"
+		},
+		"annotations": [],
+		"lastPublishTime": "2020-12-06T14:57:30Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

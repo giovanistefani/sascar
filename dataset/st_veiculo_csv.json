@@ -1,0 +1,37 @@
+{
+	"name": "st_veiculo_csv",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "df_dev_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Smart Report/load_landed"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "veiculo",
+				"fileSystem": "ct-landed-dev"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

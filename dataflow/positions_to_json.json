@@ -1,0 +1,28 @@
+{
+	"name": "positions_to_json",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "position",
+						"type": "DatasetReference"
+					},
+					"name": "avroPositions"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "position_json",
+						"type": "DatasetReference"
+					},
+					"name": "positionsJson"
+				}
+			],
+			"transformations": [],
+			"script": "parameters{\n\tpath_date as string ('2020/11/12'),\n\tpath_container as string ('sascar-dev-evthub/evthub-position-dev'),\n\tpath_partition as string ('0')\n}\nsource(output(\n\t\tSequenceNumber as long,\n\t\tOffset as string,\n\t\tEnqueuedTimeUtc as string,\n\t\tSystemProperties as string,\n\t\tProperties as string,\n\t\tBody as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: true,\n\twildcardPaths:[(concat($path_container,'/',$path_partition,'/',$path_date,'/**'))]) ~> avroPositions\navroPositions sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\ttruncate: true,\n\tmapColumn(\n\t\tpositions = Body\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> positionsJson"
+		}
+	}
+}

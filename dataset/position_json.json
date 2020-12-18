@@ -1,0 +1,40 @@
+{
+	"name": "position_json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "df_dev_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"path_date": {
+				"type": "string",
+				"defaultValue": "2020/11/12"
+			},
+			"path_container": {
+				"type": "string",
+				"defaultValue": "sascar-dev-evthub-Json/evthub-position-dev"
+			},
+			"path_partition": {
+				"type": "string",
+				"defaultValue": "1"
+			}
+		},
+		"folder": {
+			"name": "Smart Report/origem"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": {
+					"value": "@concat(dataset().path_container,'/',dataset().path_partition,'/',dataset().path_date)",
+					"type": "Expression"
+				},
+				"fileSystem": "ct-position-dev"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

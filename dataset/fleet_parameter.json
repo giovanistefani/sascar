@@ -1,0 +1,21 @@
+{
+	"name": "fleet_parameter",
+	"properties": {
+		"description": "Fleet parameters from sasweb2.",
+		"linkedServiceName": {
+			"referenceName": "df_dev_dominio",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Smart Report/origem"
+		},
+		"annotations": [],
+		"type": "PostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dispositivo",
+			"table": "parametro_frota"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

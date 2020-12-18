@@ -1,0 +1,78 @@
+{
+	"name": "CleanGrupoAndSubVeiculo",
+	"properties": {
+		"folder": {
+			"name": "DF_to_Raw"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "st_grupo_veiculo_csv",
+						"type": "DatasetReference"
+					},
+					"name": "stGrupoVeiculoClean"
+				},
+				{
+					"dataset": {
+						"referenceName": "st_sub_grupo_veiculo_csv",
+						"type": "DatasetReference"
+					},
+					"name": "stSubGrupoVeiculoClean"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "st_grupo_veiculo_clean",
+						"type": "DatasetReference"
+					},
+					"name": "saveStGrupoVeiculoClean"
+				},
+				{
+					"dataset": {
+						"referenceName": "st_sub_grupo_veiculo_cleam",
+						"type": "DatasetReference"
+					},
+					"name": "saveStSubGrupoVeiculoClean"
+				}
+			],
+			"transformations": [
+				{
+					"name": "MapDriftedStGrupoVeiculo",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "addSkDimVehicleGroup"
+				},
+				{
+					"name": "SelectCollumnsGrupoVeiculo"
+				},
+				{
+					"name": "MapDriftedStSubGrupoVeiculo",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "SelectCollumnsSubGrupoVeiculo"
+				},
+				{
+					"name": "addSkDimVehicleSubgroup"
+				},
+				{
+					"name": "setNullStSubGrupoVeiculo"
+				},
+				{
+					"name": "setNullStGrupoVeiculo"
+				},
+				{
+					"name": "SortStGrupoVeiculo"
+				},
+				{
+					"name": "SortStSubGrupoVeiculo"
+				}
+			],
+			"script": "source(output(\n\t\tagrveiveioid as string,\n\t\tagrveiveigruoid as string,\n\t\tagrveiveisubgruoid as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:['grupo_veiculo']) ~> stGrupoVeiculoClean\nsource(output(\n\t\tagrveiveioid as string,\n\t\tagrveiveigruoid as string,\n\t\tagrveiveisubgruoid as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:['sub_grupo_veiculo']) ~> stSubGrupoVeiculoClean\nstGrupoVeiculoClean derive(vehicle_group_id = toString(byName('veigruoid')),\n\t\tvehicle_group_name = toString(byName('veigrunome')),\n\t\tveigrupafroid = toString(byName('veigrupafroid'))) ~> MapDriftedStGrupoVeiculo\nSortStGrupoVeiculo keyGenerate(output(sk_dim_vehicle_group as long),\n\tstartAt: 1L) ~> addSkDimVehicleGroup\nsetNullStGrupoVeiculo select(mapColumn(\n\t\tvehicle_group_id,\n\t\tvehicle_group_name,\n\t\tveigrupafroid\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectCollumnsGrupoVeiculo\nstSubGrupoVeiculoClean derive(vehicle_subgroup_id = toString(byName('veisubgruoid')),\n\t\tvehicle_subgroup_name = toString(byName('veisubgrunome')),\n\t\tveisubgrupafroid = toString(byName('veisubgrupafroid'))) ~> MapDriftedStSubGrupoVeiculo\nsetNullStSubGrupoVeiculo select(mapColumn(\n\t\tvehicle_subgroup_id,\n\t\tvehicle_subgroup_name,\n\t\tveisubgrupafroid\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectCollumnsSubGrupoVeiculo\nSortStSubGrupoVeiculo keyGenerate(output(sk_dim_vehicle_subgroup as long),\n\tstartAt: 1L) ~> addSkDimVehicleSubgroup\nMapDriftedStSubGrupoVeiculo derive(veisubgrupafroid = coalesce(veisubgrupafroid, veisubgrupafroid, '-1')) ~> setNullStSubGrupoVeiculo\nMapDriftedStGrupoVeiculo derive(veigrupafroid = coalesce(veigrupafroid, veigrupafroid, '-1')) ~> setNullStGrupoVeiculo\nSelectCollumnsGrupoVeiculo sort(asc(vehicle_group_id, true)) ~> SortStGrupoVeiculo\nSelectCollumnsSubGrupoVeiculo sort(asc(vehicle_subgroup_id, true)) ~> SortStSubGrupoVeiculo\naddSkDimVehicleGroup sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['st_grupo_veiculo_clean.csv'],\n\ttruncate: true,\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true,\n\tsaveOrder: 1) ~> saveStGrupoVeiculoClean\naddSkDimVehicleSubgroup sink(input(\n\t\tvehicle_group_id as string,\n\t\tvehicle_group_name as string,\n\t\tveigrupafroid as string,\n\t\tsk_dim_vehicle_group as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['st_sub_grupo_veiculo_clean.csv'],\n\ttruncate: true,\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> saveStSubGrupoVeiculoClean"
+		}
+	}
+}

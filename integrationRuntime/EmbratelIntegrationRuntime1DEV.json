@@ -1,0 +1,7 @@
+{
+	"name": "EmbratelIntegrationRuntime1DEV",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Integration Runtime DEV (comunicação ambientes Azure DTH e LAPA/MKZ)"
+	}
+}

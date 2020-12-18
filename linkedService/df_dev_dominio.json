@@ -1,0 +1,17 @@
+{
+	"name": "df_dev_dominio",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Ambiente DEV. Conexão para a base de domínio do Sasweb2. ",
+		"annotations": [],
+		"type": "PostgreSql",
+		"typeProperties": {
+			"connectionString": "host=10.1.110.124;port=5432;database=dominio;uid=smart_reports_app;encryptionmethod=0",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiJmOTJjOGVhOS0zOGM0LTQ1YmQtOWM3MS1jMWIyMzk4N2NjODciLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "EmbratelIntegrationRuntime1DEV",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

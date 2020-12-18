@@ -1,0 +1,74 @@
+{
+	"name": "CleanMotorista",
+	"properties": {
+		"folder": {
+			"name": "DF_to_Raw"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "st_motorista_csv",
+						"type": "DatasetReference"
+					},
+					"name": "stMotorista"
+				},
+				{
+					"dataset": {
+						"referenceName": "st_contato_csv",
+						"type": "DatasetReference"
+					},
+					"name": "stContato"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "st_motorista_clean",
+						"type": "DatasetReference"
+					},
+					"name": "saveStMotorista"
+				}
+			],
+			"transformations": [
+				{
+					"name": "MapDriftedStMotorista",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "SetNullStMotorista"
+				},
+				{
+					"name": "SelectCollumnsMotorista"
+				},
+				{
+					"name": "SortMotorista"
+				},
+				{
+					"name": "addSkDimMotorista"
+				},
+				{
+					"name": "MapDriftedStContato",
+					"description": "Creates an explicit mapping for each drifted column"
+				},
+				{
+					"name": "SelectStContato"
+				},
+				{
+					"name": "SortContato"
+				},
+				{
+					"name": "Join1"
+				},
+				{
+					"name": "Filter1"
+				},
+				{
+					"name": "SortMotoid"
+				}
+			],
+			"script": "source(output(\n\t\tagrveiveioid as string,\n\t\tagrveiveigruoid as string,\n\t\tagrveiveisubgruoid as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:['motorista'],\n\tpartitionBy('hash', 1)) ~> stMotorista\nsource(output(\n\t\tagrveiveioid as string,\n\t\tagrveiveigruoid as string,\n\t\tagrveiveisubgruoid as string\n\t),\n\tallowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:['contato']) ~> stContato\nstMotorista derive(motoid = toInteger(byName('motoid')),\n\t\tmotclioid = toString(byName('motclioid'))) ~> MapDriftedStMotorista\nMapDriftedStMotorista derive(motclioid = coalesce(motclioid, motclioid, '-1')) ~> SetNullStMotorista\nSetNullStMotorista select(mapColumn(\n\t\tmotoid,\n\t\tmotclioid\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectCollumnsMotorista\nSelectCollumnsMotorista sort(asc(motclioid, true)) ~> SortMotorista\nSortMotoid keyGenerate(output(sk_dim_motorista as long),\n\tstartAt: 1L) ~> addSkDimMotorista\nstContato derive(cntmotoid = toInteger(byName('cntmotoid')),\n\t\tcntnome = toString(byName('cntnome'))) ~> MapDriftedStContato\nMapDriftedStContato select(mapColumn(\n\t\tcntmotoid,\n\t\tcntnome\n\t),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SelectStContato\nFilter1 sort(asc(cntmotoid, true)) ~> SortContato\nSortMotorista, SortContato join(motoid == cntmotoid,\n\tjoinType:'left',\n\tbroadcast: 'auto')~> Join1\nSelectStContato filter(not(isNull(cntmotoid))) ~> Filter1\nJoin1 sort(asc(motoid, true)) ~> SortMotoid\naddSkDimMotorista sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tpartitionFileNames:['st_motorista.csv'],\n\tmapColumn(\n\t\tsk_dim_motorista,\n\t\tmotoid,\n\t\tcntnome\n\t),\n\tpartitionBy('hash', 1),\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> saveStMotorista"
+		}
+	}
+}

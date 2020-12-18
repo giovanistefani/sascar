@@ -1,0 +1,20 @@
+{
+	"name": "contato",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "df_dev_dominio",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Smart Report/origem"
+		},
+		"annotations": [],
+		"type": "PostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "cliente",
+			"table": "contato"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

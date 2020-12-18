@@ -1,0 +1,186 @@
+{
+	"name": "getparametrofrota",
+	"properties": {
+		"activities": [
+			{
+				"name": "getParametroFrota",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "PostgreSqlSource"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "pafroid",
+									"type": "Int64"
+								},
+								"sink": {
+									"name": "pafroid",
+									"type": "Int64",
+									"physicalType": "INT_64"
+								}
+							},
+							{
+								"source": {
+									"name": "pafrmd_combustivel_ideal",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "pafrmd_combustivel_ideal",
+									"type": "Decimal",
+									"physicalType": "DECIMAL"
+								}
+							},
+							{
+								"source": {
+									"name": "pafrvl_diesel",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "pafrvl_diesel",
+									"type": "Decimal",
+									"physicalType": "DECIMAL"
+								}
+							},
+							{
+								"source": {
+									"name": "pafrpct_fx_verde",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "pafrpct_fx_verde",
+									"type": "Decimal",
+									"physicalType": "DECIMAL"
+								}
+							},
+							{
+								"source": {
+									"name": "pafrpct_sobregiro",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "pafrpct_sobregiro",
+									"type": "Decimal",
+									"physicalType": "DECIMAL"
+								}
+							},
+							{
+								"source": {
+									"name": "pafrtp_parado_ligado",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "pafrtp_parado_ligado",
+									"type": "Decimal",
+									"physicalType": "DECIMAL"
+								}
+							},
+							{
+								"source": {
+									"name": "pafrvl_min_consumo",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "pafrvl_min_consumo",
+									"type": "Decimal",
+									"physicalType": "DECIMAL"
+								}
+							},
+							{
+								"source": {
+									"name": "pafrvl_min_odometro",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "pafrvl_min_odometro",
+									"type": "Decimal",
+									"physicalType": "DECIMAL"
+								}
+							},
+							{
+								"source": {
+									"name": "pafrhora_disponivel_dia",
+									"type": "String"
+								},
+								"sink": {
+									"name": "pafrhora_disponivel_dia",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "pafrqtd_dias_semana",
+									"type": "String"
+								},
+								"sink": {
+									"name": "pafrqtd_dias_semana",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "pafrpct_fx_verde_extraeconomica",
+									"type": "Decimal"
+								},
+								"sink": {
+									"name": "pafrpct_fx_verde_extraeconomica",
+									"type": "Decimal",
+									"physicalType": "DECIMAL"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "fleet_parameter",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "st_parametro_frota_csv",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "load_ct-landed-dev/reprocessing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2020-12-05T19:03:07Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

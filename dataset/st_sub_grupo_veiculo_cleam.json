@@ -1,0 +1,44 @@
+{
+	"name": "st_sub_grupo_veiculo_cleam",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "df_dev_datalake",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Smart Report/load_raw"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "sub_grupo_veiculo",
+				"fileSystem": "ct-raw-dev"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "vehicle_group_id",
+				"type": "String"
+			},
+			{
+				"name": "vehicle_group_name",
+				"type": "String"
+			},
+			{
+				"name": "veigrupafroid",
+				"type": "String"
+			},
+			{
+				"name": "sk_dim_vehicle_group",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

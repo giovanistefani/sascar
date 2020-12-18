@@ -1,0 +1,123 @@
+{
+	"name": "getclientesincroniza",
+	"properties": {
+		"activities": [
+			{
+				"name": "getClienteSincroniza",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "PostgreSqlSource"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".csv"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "csclioid",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "csclioid",
+									"type": "Int32",
+									"physicalType": "INT_32"
+								}
+							},
+							{
+								"source": {
+									"name": "csclinome",
+									"type": "String"
+								},
+								"sink": {
+									"name": "csclinome",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "cscliclioid_matriz",
+									"type": "Int32"
+								},
+								"sink": {
+									"name": "cscliclioid_matriz",
+									"type": "Int32",
+									"physicalType": "INT_32"
+								}
+							},
+							{
+								"source": {
+									"name": "cscliorigem",
+									"type": "String"
+								},
+								"sink": {
+									"name": "cscliorigem",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							},
+							{
+								"source": {
+									"name": "csclipaiscodigoiso",
+									"type": "String"
+								},
+								"sink": {
+									"name": "csclipaiscodigoiso",
+									"type": "String",
+									"physicalType": "UTF8"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "customer",
+						"type": "DatasetReference",
+						"parameters": {
+							"customer_active": "IS NOT NULL"
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "st_cliente_sincroniza_csv",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"folder": {
+			"name": "load_ct-landed-dev/reprocessing"
+		},
+		"annotations": [],
+		"lastPublishTime": "2020-12-05T18:06:05Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,21 @@
+{
+	"name": "subgroup",
+	"properties": {
+		"description": "Subgroups of vehicles from sasweb2.",
+		"linkedServiceName": {
+			"referenceName": "df_dev_dominio",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "Smart Report/origem"
+		},
+		"annotations": [],
+		"type": "PostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dispositivo",
+			"table": "veiculo_subgrupo"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

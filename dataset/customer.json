@@ -1,0 +1,27 @@
+{
+	"name": "customer",
+	"properties": {
+		"description": "Customers of sasweb2",
+		"linkedServiceName": {
+			"referenceName": "df_dev_bdcentral",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"customer_active": {
+				"type": "string",
+				"defaultValue": "IS NOT NULL"
+			}
+		},
+		"folder": {
+			"name": "Smart Report/origem"
+		},
+		"annotations": [],
+		"type": "PostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "public",
+			"table": "cliente_sincroniza"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
