@@ -1,0 +1,28 @@
+{
+	"name": "st_customer",
+	"properties": {
+		"description": "Stage file of customer data",
+		"linkedServiceName": {
+			"referenceName": "ws-dev-syn-smartreports-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "datalake/ct-raw"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "st_customer",
+				"fileSystem": "ct-raw-dev"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

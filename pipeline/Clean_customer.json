@@ -1,0 +1,38 @@
+{
+	"name": "Clean_customer",
+	"properties": {
+		"activities": [
+			{
+				"name": "CleanCustumer",
+				"type": "ExecuteDataFlow",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "7.00:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"dataflow": {
+						"referenceName": "CleanCustomer",
+						"type": "DataFlowReference"
+					},
+					"compute": {
+						"coreCount": 8,
+						"computeType": "General"
+					},
+					"traceLevel": "Fine"
+				}
+			}
+		],
+		"concurrency": 20,
+		"folder": {
+			"name": "landed2raw"
+		},
+		"annotations": [],
+		"lastPublishTime": "2020-12-30T02:04:55Z"
+	},
+	"type": "Microsoft.Synapse/workspaces/pipelines"
+}

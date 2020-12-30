@@ -1,0 +1,7 @@
+{
+	"name": "AZ-DEV-SYN-INTRUN-001",
+	"properties": {
+		"type": "SelfHosted",
+		"description": "Azure self host integration runtime, conexão azure dth com mkz"
+	}
+}

@@ -1,0 +1,80 @@
+{
+	"name": "veiculo_subgrupo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ws-dev-syn-smartreports-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "datalake/ct-landed"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "sub_grupo_veiculo",
+				"fileSystem": "ct-landed-dev"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "veisubgruoid",
+				"type": "String"
+			},
+			{
+				"name": "veisubgrunome",
+				"type": "String"
+			},
+			{
+				"name": "veisubgrudescricao",
+				"type": "String"
+			},
+			{
+				"name": "veisubgrudt_inclusao",
+				"type": "String"
+			},
+			{
+				"name": "veisubgrudt_alteracao",
+				"type": "String"
+			},
+			{
+				"name": "veisubgrudt_exclusao",
+				"type": "String"
+			},
+			{
+				"name": "veisubgruveigruoid",
+				"type": "String"
+			},
+			{
+				"name": "veisubgruusuoid_inclusao",
+				"type": "String"
+			},
+			{
+				"name": "veisubgruusuoid_alteracao",
+				"type": "String"
+			},
+			{
+				"name": "veisubgruusuoid_exclusao",
+				"type": "String"
+			},
+			{
+				"name": "veisubgrupousoid",
+				"type": "String"
+			},
+			{
+				"name": "veisubgruautomotor",
+				"type": "String"
+			},
+			{
+				"name": "veisubgrupafroid",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

@@ -1,0 +1,27 @@
+{
+	"name": "agrupamento_veiculo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ws-dev-syn-smartreports-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "datalake/ct-landed"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "agrupamento_veiculo",
+				"fileSystem": "ct-landed-dev"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

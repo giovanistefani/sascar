@@ -1,0 +1,37 @@
+{
+	"name": "Positions2Json",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ws-dev-syn-smartreports-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"path_date": {
+				"type": "string",
+				"defaultValue": "2020/11/13"
+			},
+			"path_container": {
+				"type": "string",
+				"defaultValue": "sascar-dev-evthub/evthub-position-dev"
+			},
+			"path_partition": {
+				"type": "string",
+				"defaultValue": "0"
+			}
+		},
+		"folder": {
+			"name": "datalake/ct-landed"
+		},
+		"annotations": [],
+		"type": "Avro",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "sascar-dev-evthub/evthub-position-dev",
+				"fileSystem": "ct-landed-dev"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

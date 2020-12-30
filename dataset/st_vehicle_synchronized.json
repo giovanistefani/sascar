@@ -1,0 +1,28 @@
+{
+	"name": "st_vehicle_synchronized",
+	"properties": {
+		"description": "Stage file with vehicle data synchronized",
+		"linkedServiceName": {
+			"referenceName": "ws-dev-syn-smartreports-WorkspaceDefaultStorage",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "datalake/ct-raw"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"folderPath": "st_vehicle_synchronized",
+				"fileSystem": "ct-raw-dev"
+			},
+			"columnDelimiter": ";",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": []
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

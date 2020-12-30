@@ -1,0 +1,10 @@
+{
+	"name": "synapse-ws-sql--ws-dev-syn-smartreports",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/ae927b91-6576-476f-b40c-9ced325fe373/resourceGroups/RG_BR_DEV_ANALYTICS/providers/Microsoft.Synapse/workspaces/ws-dev-syn-smartreports",
+		"groupId": "sql",
+		"fqdns": [
+			"ws-dev-syn-smartreports.8bbaf82e-64fd-4fd4-87de-24515065cdcb.sql.azuresynapse.net"
+		]
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"name": "dispositivo_veiculo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "dominio",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "database"
+		},
+		"annotations": [],
+		"type": "PostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dispositivo",
+			"table": "veiculo"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

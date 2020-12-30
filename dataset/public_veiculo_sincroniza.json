@@ -1,0 +1,20 @@
+{
+	"name": "public_veiculo_sincroniza",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "bdcentral",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "database"
+		},
+		"annotations": [],
+		"type": "PostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "public",
+			"table": "veiculo_sincroniza"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}

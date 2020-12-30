@@ -1,0 +1,17 @@
+{
+	"name": "dominio",
+	"type": "Microsoft.Synapse/workspaces/linkedservices",
+	"properties": {
+		"description": "Conecção com o integration runtime e o banco dominio de desenvolvimento",
+		"annotations": [],
+		"type": "PostgreSql",
+		"typeProperties": {
+			"connectionString": "host=10.1.110.124;port=5432;database=dominio;uid=dev_smart_report;encryptionmethod=0",
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIyOGU5YTdiNS02YjEyLTQzZjYtYWFiMi1jYTA0ZGZlNTlkZDUiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+		},
+		"connectVia": {
+			"referenceName": "AZ-DEV-SYN-INTRUN-001",
+			"type": "IntegrationRuntimeReference"
+		}
+	}
+}

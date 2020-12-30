@@ -1,0 +1,10 @@
+{
+	"name": "AzureDataLakeStorageConnectionSec",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/ae927b91-6576-476f-b40c-9ced325fe373/resourceGroups/RG_BR_DEV_DATA_LAKE/providers/Microsoft.Storage/storageAccounts/dlsascardev",
+		"groupId": "dfs",
+		"fqdns": [
+			"dlsascardev.dfs.core.windows.net"
+		]
+	}
+}

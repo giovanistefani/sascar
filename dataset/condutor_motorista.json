@@ -1,0 +1,21 @@
+{
+	"name": "condutor_motorista",
+	"properties": {
+		"description": "Tabela de dados sobre o condutor dos veiculos.",
+		"linkedServiceName": {
+			"referenceName": "dominio",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "database"
+		},
+		"annotations": [],
+		"type": "PostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "condutor",
+			"table": "motorista"
+		}
+	},
+	"type": "Microsoft.Synapse/workspaces/datasets"
+}
