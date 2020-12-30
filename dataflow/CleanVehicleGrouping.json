@@ -1,0 +1,31 @@
+{
+	"name": "CleanVehicleGrouping",
+	"properties": {
+		"folder": {
+			"name": "landed2raw"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "agrupamento_veiculo",
+						"type": "DatasetReference"
+					},
+					"name": "GetVehicleGrouping"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "st_vehicle_grouping",
+						"type": "DatasetReference"
+					},
+					"name": "SaveStVehicleGrouping"
+				}
+			],
+			"transformations": [],
+			"script": "source(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tignoreNoFilesFound: false,\n\twildcardPaths:['agrupamento_veiculo']) ~> GetVehicleGrouping\nGetVehicleGrouping sink(allowSchemaDrift: true,\n\tvalidateSchema: false,\n\tskipDuplicateMapInputs: true,\n\tskipDuplicateMapOutputs: true) ~> SaveStVehicleGrouping"
+		}
+	}
+}
